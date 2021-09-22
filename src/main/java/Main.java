@@ -11,8 +11,14 @@ public class Main {
         Connection dbConnection  = DatabaseConnector.connectToDatabase();
         Statement statement = dbConnection.createStatement();
 
-        List<Team> teams = EkstraklasaTable.createTeams(statement);
+        List<Team> teams = EkstraklasaTable.createTeamsFromQuery(statement);
         Team.sumEachTeamPoints(teams, statement);
         EkstraklasaTable.createConsoleTable(teams);
+
+        String lname = "Ishak";
+        PlayerStats.getInfoAboutPlayer(statement, lname);
+
+        String clubName = "LPO";
+        PlayerStats.getInfoAboutTeam(statement, clubName);
     }
 }

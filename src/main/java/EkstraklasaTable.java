@@ -6,7 +6,7 @@ import java.util.List;
 
 public class EkstraklasaTable {
 
-    public static List<Team> createTeams(Statement statement) {
+    public static List<Team> createTeamsFromQuery(Statement statement) {
         List<Team> teamList = new ArrayList<>();
         try {
             ResultSet queryResult = statement.executeQuery("SELECT DISTINCT clubID FROM Clubs");
