@@ -1,3 +1,8 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
 public class Team {
     private String name;
     private int matchCounter;
@@ -78,6 +83,60 @@ public class Team {
     }
 
     public void addForm(String text) {
-        form = text + " " +form;
+        form = text + " " + form;
+    }
+
+    public static void sumEachTeamPoints(List<Team> teams ,Statement statement) {
+        for (Team team: teams) {
+            ResultSet result = null;
+            try {
+                result = statement.executeQuery("SELECT * FROM Matches WHERE hostID = \'" + team.getName() + "\' OR guestID = \'" + team.getName() + "\' ORDER BY gameweek;");
+                while(result.next()){
+                    team.addGame();
+                    if(result.getString("hostID").equals(team.getName())) {
+                        team.addGoalScored(result.getInt("goals_host"));
+                        team.addGoalConceded(result.getInt("goals_guest"));
+                        if(result.getInt("goals_host") > result.getInt("goals_guest")) {
+                            team.addWin();
+                            team.addPoints(3);
+                            team.addForm("W");
+                        }
+                        else if(result.getInt("goals_host") == result.getInt("goals_guest")) {
+                            team.addDraw();
+                            team.addPoints(1);
+                            team.addForm("D");
+                        }
+                        else {
+                            team.addLost();
+                            team.addPoints(0);
+                            team.addForm("L");
+                        }
+                    }
+                    else {
+                        team.addGoalScored(result.getInt("goals_guest"));
+                        team.addGoalConceded(result.getInt("goals_host"));
+                        if(result.getInt("goals_host") < result.getInt("goals_guest")) {
+                            team.addWin();
+                            team.addPoints(3);
+                            team.addForm("W");
+                        }
+                        else if(result.getInt("goals_host") == result.getInt("goals_guest")) {
+                            team.addDraw();
+                            team.addPoints(1);
+                            team.addForm("D");
+                        }
+                        else {
+                            team.addLost();
+                            team.addPoints(0);
+                            team.addForm("L");
+                        }
+                    }
+                }
+            } catch (SQLException exception) {
+                System.out.println("Can not process this query!");
+                exception.printStackTrace();
+            }
+
+        }
     }
 }
