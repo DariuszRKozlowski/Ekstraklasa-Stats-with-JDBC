@@ -1,3 +1,6 @@
+package application;
+
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -6,14 +9,14 @@ import java.util.List;
 
 public class EkstraklasaTable {
 
-    public static List<Team> createTeamsFromQuery(Statement statement) {
+    public static List<Team> createTeamsFromQuery(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
         List<Team> teamList = new ArrayList<>();
         try {
             ResultSet queryResult = statement.executeQuery("SELECT DISTINCT clubID FROM Clubs");
             while(queryResult.next()) {
                 teamList.add(new Team(queryResult.getString(1)));
             }
-
         } catch (SQLException exception) {
             System.out.println("Can not process this query!");
             exception.printStackTrace();

@@ -1,24 +1,17 @@
+import infrastructure.DatabaseConnector;
+import presentation.Menu;
+
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
-
+    public static void main(String[] args) throws SQLException, IOException {
+        // Connection with Database
         Connection dbConnection  = DatabaseConnector.connectToDatabase();
-        Statement statement = dbConnection.createStatement();
 
-        List<Team> teams = EkstraklasaTable.createTeamsFromQuery(statement);
-        Team.sumEachTeamPoints(teams, statement);
-        EkstraklasaTable.createConsoleTable(teams);
+        //Menu
+        Menu.appControl(dbConnection);
 
-        String lname = "Ishak";
-        PlayerStats.getInfoAboutPlayer(statement, lname);
-
-        String clubName = "LPO";
-        PlayerStats.getInfoAboutTeam(statement, clubName);
     }
 }

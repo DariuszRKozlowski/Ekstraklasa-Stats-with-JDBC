@@ -1,10 +1,15 @@
+package application;
+
+import javax.swing.*;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PlayerStats {
 
-    public static void getInfoAboutPlayer(Statement statement, String name) {
+    public static void getInfoAboutPlayer(Connection connection, String name) throws SQLException {
+        Statement statement = connection.createStatement();
         try {
             try (ResultSet resultQuery = statement.executeQuery("SELECT P.first_name, P.last_name, SUM(S.game_minutes) AS Minutes, SUM(S.goals) AS Goals, SUM(S.assists) AS Assists, " +
                     "SUM(CAST(S.clean_sheet AS tinyint)) AS CleanSheets, SUM(CAST(S.yellow_card AS tinyint)) AS YellowCards, SUM(CAST(S.red_card AS tinyint)) " +
@@ -19,13 +24,9 @@ public class PlayerStats {
                     int yellowCards = resultQuery.getInt(7);
                     int redCards = resultQuery.getInt(8);
                     String club = resultQuery.getString(9);
-                    System.out.println("\nResults for: " + name + "\n");
-                    System.out.println("General informations about " + fName + " " + lName + " (" + club + "):");
-                    System.out.println("On the pitch: " + minutes + " minutes.");
-                    System.out.println("Goals & Assists: " + goals + " goals & " + assists + " assists.");
-                    System.out.println("Clean sheets: " + cleanSheets + ".");
-                    System.out.println("Yellow & Red cards: " + yellowCards + " yellow & " + redCards + " red card(s).");
-
+                    JOptionPane.showMessageDialog(null, "Results for: " + name + "\nGeneral informations about " + fName + " " + lName +
+                            " (" + club + "):\nOn the pitch: " + minutes + " minutes.\nGoals & Assists: " + goals + " goal(s) & " + assists + " assist(s).\n" +
+                            "Clean sheets: " + cleanSheets + ".\nCards: " + yellowCards + " yellow & " + redCards + " red card(s).");
                 }
             }
         } catch (SQLException exception) {
@@ -34,7 +35,8 @@ public class PlayerStats {
         }
     }
 
-    public static void getInfoAboutTeam(Statement statement, String name) throws SQLException {
+    public static void getInfoAboutTeam(Connection connection, String name) throws SQLException {
+        Statement statement = connection.createStatement();
         System.out.println();
         ResultSet clubInfo = statement.executeQuery("SELECT * FROM Clubs WHERE clubID = '" + name + "';");
         while(clubInfo.next()) {

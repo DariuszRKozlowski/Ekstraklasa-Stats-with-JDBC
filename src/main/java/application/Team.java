@@ -1,10 +1,14 @@
+package application;
+
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
 public class Team {
-    private String name;
+
+    private final String name;
     private int matchCounter;
     private int winCounter;
     private int drawCounter;
@@ -86,11 +90,12 @@ public class Team {
         form = text + " " + form;
     }
 
-    public static void sumEachTeamPoints(List<Team> teams ,Statement statement) {
+    public static void sumEachTeamPoints(List<Team> teams , Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
         for (Team team: teams) {
             ResultSet result = null;
             try {
-                result = statement.executeQuery("SELECT * FROM Matches WHERE hostID = \'" + team.getName() + "\' OR guestID = \'" + team.getName() + "\' ORDER BY gameweek;");
+                result = statement.executeQuery("SELECT * FROM Matches WHERE hostID = '" + team.getName() + "' OR guestID = '" + team.getName() + "' ORDER BY gameweek;");
                 while(result.next()){
                     team.addGame();
                     if(result.getString("hostID").equals(team.getName())) {
