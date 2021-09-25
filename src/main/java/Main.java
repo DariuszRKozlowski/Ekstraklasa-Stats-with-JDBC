@@ -1,4 +1,4 @@
-import infrastructure.DatabaseConnector;
+import data.DatabaseConnector;
 import presentation.Menu;
 
 import java.io.IOException;
