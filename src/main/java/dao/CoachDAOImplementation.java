@@ -27,9 +27,10 @@ public class CoachDAOImplementation implements CoachDAOi{
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
+        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
         while(result.next()) {
             int id = result.getInt(1);
-            Club club = Club.findById(result.getString(2));
+            Club club = clubDAO.filterById(result.getString(2));
             String fName = result.getString(3);
             String lName = result.getString(4);
             String nationality = result.getString(5);
@@ -40,9 +41,9 @@ public class CoachDAOImplementation implements CoachDAOi{
         return listOfCoaches;
     }
 
-    public List<Coach> filterById(int coachId) throws IOException, SQLException {
+    public Coach filterById(int coachId) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + ID_FILTER + coachId + ";";
-        List<Coach> listOfCoachesById = new ArrayList<>();
+        Coach coach = null;
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
@@ -54,10 +55,10 @@ public class CoachDAOImplementation implements CoachDAOi{
             String lName = result.getString(4);
             String nationality = result.getString(5);
             Date birthDate = result.getDate(6);
-            listOfCoachesById.add(new Coach(id, team, fName, lName, nationality, birthDate));
+            coach = new Coach(id, team, fName, lName, nationality, birthDate);
         }
         connection.close();
-        return listOfCoachesById;
+        return coach;
     }
 
     public List<Coach> filterByClub(Club club) throws IOException, SQLException {

@@ -29,4 +29,35 @@ public class Match {
         return matchId;
     }
 
+    public int getGameweek() {
+        return gameweek;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Club getHostID() {
+        return hostID;
+    }
+
+    public Club getGuestID() {
+        return guestID;
+    }
+
+    public int getGoalsHost() {
+        return goalsHost;
+    }
+
+    public int getGoalsGuest() {
+        return goalsGuest;
+    }
+
+    public Referee getReferee() {
+        return referee;
+    }
+
+    public int getAttendance() {
+        return attendance;
+    }
 }

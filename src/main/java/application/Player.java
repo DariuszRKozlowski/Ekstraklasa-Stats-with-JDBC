@@ -27,4 +27,31 @@ public class Player {
         return playerId;
     }
 
+    public Club getClubId() {
+        return clubId;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public Date getContractValidity() {
+        return contractValidity;
+    }
+
+    public String getNominalPosition() {
+        return nominalPosition;
+    }
 }

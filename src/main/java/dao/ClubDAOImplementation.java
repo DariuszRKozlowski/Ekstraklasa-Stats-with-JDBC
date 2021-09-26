@@ -20,6 +20,32 @@ public class ClubDAOImplementation implements ClubDAOi{
 
     public List<Club> getAll() throws IOException, SQLException {
         String query = SELECT_ALL + ";";
+        return this.executeQuery(query);
+    }
+
+    public Club filterById(String id) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + ID_FILTER + id + "';";
+        Connection connection = DatabaseConnector.connectToDatabase();
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(query);
+        Club club = null;
+        String clubId = result.getString(1);
+        String name = result.getString(2);
+        String locality = result.getString(3);
+        String voivodeship = result.getString(4);
+        String stadiumName = result.getString(5);
+        int stadiumCapacity = result.getInt(6);
+        club =new Club(clubId, name, locality, voivodeship, stadiumName, stadiumCapacity);
+        connection.close();
+        return club;
+    }
+
+    public List<Club> filterByName(String clubName) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + NAME_FILTER1 + clubName + NAME_FILTER2;
+        return this.executeQuery(query);
+    }
+
+    private List<Club> executeQuery(String query) throws SQLException, IOException {
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
@@ -37,41 +63,5 @@ public class ClubDAOImplementation implements ClubDAOi{
         return listOfClubs;
     }
 
-    public Club filterById(String id) throws IOException, SQLException {
-        String query = SELECT_ALL + FILTER + ID_FILTER + id + "';";
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(query);
-        List<Club> listOfClubsById = new ArrayList<>();
-        while(result.next()) {
-            String clubId = result.getString(1);
-            String name = result.getString(2);
-            String locality = result.getString(3);
-            String voivodeship = result.getString(4);
-            String stadiumName = result.getString(5);
-            int stadiumCapacity = result.getInt(6);
-            listOfClubsById.add(new Club(clubId, name, locality, voivodeship, stadiumName, stadiumCapacity));
-        }
-        connection.close();
-        return listOfClubsById.get(0);
-    }
 
-    public List<Club> filterByName(String clubName) throws IOException, SQLException {
-        String query = SELECT_ALL + FILTER + NAME_FILTER1 + clubName + NAME_FILTER2;
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(query);
-        List<Club> listOfClubsByName = new ArrayList<>();
-        while(result.next()) {
-            String clubId = result.getString(1);
-            String name = result.getString(2);
-            String locality = result.getString(3);
-            String voivodeship = result.getString(4);
-            String stadiumName = result.getString(5);
-            int stadiumCapacity = result.getInt(6);
-            listOfClubsByName.add(new Club(clubId, name, locality, voivodeship, stadiumName, stadiumCapacity));
-        }
-        connection.close();
-        return listOfClubsByName;
-    }
 }

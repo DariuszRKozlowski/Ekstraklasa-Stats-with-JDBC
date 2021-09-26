@@ -27,9 +27,10 @@ public class PlayerDAOImplementation implements PlayerDAOi{
         String query = SELECT_ALL + ";";
         List<Player> listOfPlayers = new ArrayList<>();
         ResultSet result = statement.executeQuery(query);
+        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
         while(result.next()) {
             String playerId = result.getString(1);
-            Club clubId = Club.findById(result.getString(2));
+            Club clubId = clubDAO.filterById(result.getString(2));
             String fName = result.getString(3);
             String lName = result.getString(4);
             Date birthDate = result.getDate(5);

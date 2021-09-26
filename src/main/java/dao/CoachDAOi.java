@@ -11,7 +11,7 @@ public interface CoachDAOi {
 
     List<Coach> getAll() throws IOException, SQLException;
 
-    List<Coach> filterById(int id) throws IOException, SQLException;
+    Coach filterById(int id) throws IOException, SQLException;
 
     List<Coach> filterByClub(Club club) throws IOException, SQLException;
 
