@@ -25,15 +25,54 @@ public class MatchDAOImplementation implements MatchDAOi {
     private static final String CLUB_FILTER2 = "guestID= '";
     private static final String REFEREE_FILTER = "referee=";
     private static final String ENDING = "';";
+    private static final ClubDAOImplementation clubDAO = new ClubDAOImplementation();
+    private static final RefereeDAOImplementation refereeDAO = new RefereeDAOImplementation();
 
     public List<Match> getAll() throws IOException, SQLException {
+        String query = SELECT_ALL + ";";
+        return this.executeQuery(query);
+    }
+
+    public List<Match> filterByGameweek(int gw) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + GAMEWEEK_FILTER + gw + ";";
+        return this.executeQuery(query);
+    }
+
+    public Match filterById(String id) throws IOException, SQLException {
+        Connection connection = DatabaseConnector.connectToDatabase();
+        Statement statement = connection.createStatement();
+        List<Match> listOfMatchesById = new ArrayList<>();
+        String query = SELECT_ALL + FILTER + ID_FILTER + id + ENDING;
+        ResultSet result = statement.executeQuery(query);
+        int gameweek = result.getInt(1);
+        String matchId = result.getString(2);
+        Date date = result.getDate(3);
+        Club hostID = clubDAO.filterById(result.getString(4));
+        Club guestID = clubDAO.filterById(result.getString(5));
+        int goalsHost = result.getInt(6);
+        int goalsGuest = result.getInt(7);
+        Referee referee = refereeDAO.filterById(result.getInt(8));
+        int attendance = result.getInt(9);
+        listOfMatchesById.add(new Match(gameweek, matchId, date, hostID, guestID, goalsHost, goalsGuest, referee, attendance));
+        connection.close();
+        return listOfMatchesById.get(0);
+    }
+
+    public List<Match> filterByClub(Club club) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + CLUB_FILTER1 + club.getClubId() + OR + CLUB_FILTER2 + club.getClubId() + ENDING;
+        return this.executeQuery(query);
+    }
+
+    public List<Match> filterByReferee(Referee ref) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + REFEREE_FILTER + ref.getId() + ";";
+        return this.executeQuery(query);
+    }
+
+    private List<Match> executeQuery(String query) throws IOException, SQLException {
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
         List<Match> listOfMatches = new ArrayList<>();
-        String query = SELECT_ALL + ";";
         ResultSet result = statement.executeQuery(query);
-        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        RefereeDAOImplementation refereeDAO = new RefereeDAOImplementation();
         while(result.next()) {
             int gameweek = result.getInt(1);
             String matchId = result.getString(2);
@@ -48,101 +87,5 @@ public class MatchDAOImplementation implements MatchDAOi {
         }
         connection.close();
         return listOfMatches;
-    }
-
-    public List<Match> filterByGameweek(int gw) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        List<Match> listOfMatchesByGameweek = new ArrayList<>();
-        String query = SELECT_ALL + FILTER + GAMEWEEK_FILTER + gw + ";";
-        ResultSet result = statement.executeQuery(query);
-        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        RefereeDAOImplementation refereeDAO = new RefereeDAOImplementation();
-        while(result.next()) {
-            int gameweek = result.getInt(1);
-            String matchId = result.getString(2);
-            Date date = result.getDate(3);
-            Club hostID = clubDAO.filterById(result.getString(4));
-            Club guestID = clubDAO.filterById(result.getString(5));
-            int goalsHost = result.getInt(6);
-            int goalsGuest = result.getInt(7);
-            Referee referee = refereeDAO.filterById(result.getInt(8));
-            int attendance = result.getInt(9);
-            listOfMatchesByGameweek.add(new Match(gameweek, matchId, date, hostID, guestID, goalsHost, goalsGuest, referee, attendance));
-        }
-        connection.close();
-        return listOfMatchesByGameweek;
-    }
-
-    public Match filterById(String id) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        List<Match> listOfMatchesById = new ArrayList<>();
-        String query = SELECT_ALL + FILTER + ID_FILTER + id + ENDING;
-        ResultSet result = statement.executeQuery(query);
-        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        RefereeDAOImplementation refereeDAO = new RefereeDAOImplementation();
-        while(result.next()) {
-            int gameweek = result.getInt(1);
-            String matchId = result.getString(2);
-            Date date = result.getDate(3);
-            Club hostID = clubDAO.filterById(result.getString(4));
-            Club guestID = clubDAO.filterById(result.getString(5));
-            int goalsHost = result.getInt(6);
-            int goalsGuest = result.getInt(7);
-            Referee referee = refereeDAO.filterById(result.getInt(8));
-            int attendance = result.getInt(9);
-            listOfMatchesById.add(new Match(gameweek, matchId, date, hostID, guestID, goalsHost, goalsGuest, referee, attendance));
-        }
-        connection.close();
-        return listOfMatchesById.get(0);
-    }
-
-    public List<Match> filterByClub(Club club) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        List<Match> listOfMatchesByClub = new ArrayList<>();
-        String query = SELECT_ALL + FILTER + CLUB_FILTER1 + club.getClubId() + OR + CLUB_FILTER2 + club.getClubId() + ENDING;
-        ResultSet result = statement.executeQuery(query);
-        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        RefereeDAOImplementation refereeDAO = new RefereeDAOImplementation();
-        while(result.next()) {
-            int gameweek = result.getInt(1);
-            String matchId = result.getString(2);
-            Date date = result.getDate(3);
-            Club hostID = clubDAO.filterById(result.getString(4));
-            Club guestID = clubDAO.filterById(result.getString(5));
-            int goalsHost = result.getInt(6);
-            int goalsGuest = result.getInt(7);
-            Referee referee = refereeDAO.filterById(result.getInt(8));
-            int attendance = result.getInt(9);
-            listOfMatchesByClub.add(new Match(gameweek, matchId, date, hostID, guestID, goalsHost, goalsGuest, referee, attendance));
-        }
-        connection.close();
-        return listOfMatchesByClub;
-    }
-
-    public List<Match> filterByReferee(Referee ref) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        List<Match> listOfMatchesByReferee = new ArrayList<>();
-        String query = SELECT_ALL + FILTER + REFEREE_FILTER + ref.getId() + ";";
-        ResultSet result = statement.executeQuery(query);
-        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        RefereeDAOImplementation refereeDAO = new RefereeDAOImplementation();
-        while(result.next()) {
-            int gameweek = result.getInt(1);
-            String matchId = result.getString(2);
-            Date date = result.getDate(3);
-            Club hostID = clubDAO.filterById(result.getString(4));
-            Club guestID = clubDAO.filterById(result.getString(5));
-            int goalsHost = result.getInt(6);
-            int goalsGuest = result.getInt(7);
-            Referee referee = refereeDAO.filterById(result.getInt(8));
-            int attendance = result.getInt(9);
-            listOfMatchesByReferee.add(new Match(gameweek, matchId, date, hostID, guestID, goalsHost, goalsGuest, referee, attendance));
-        }
-        connection.close();
-        return listOfMatchesByReferee;
     }
 }

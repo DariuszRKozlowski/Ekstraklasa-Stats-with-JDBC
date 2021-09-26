@@ -19,9 +19,32 @@ public class RefereeDAOImplementation implements RefereeDAOi{
     private static final String LAST_NAME_FILTER = "last_name='";
 
     public List<Referee> getAll() throws IOException, SQLException {
+        String query = SELECT_ALL + ";";
+        return this.executeQuery(query);
+    }
+
+    public Referee filterById(int id) throws IOException, SQLException {
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
-        String query = SELECT_ALL + ";";
+        String query = SELECT_ALL + FILTER + ID_FILTER + id + ";";
+        ResultSet result = statement.executeQuery(query);
+        Referee referee = null;
+        int refereeID = result.getInt(1);
+        String fName = result.getString(2);
+        String lName = result.getString(3);
+        referee = new Referee(refereeID, fName, lName);
+        connection.close();
+        return referee;
+    }
+
+    public List<Referee> filterByLastName(String lastName) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + LAST_NAME_FILTER + lastName + "';";
+        return this.executeQuery(query);
+    }
+
+    private List<Referee> executeQuery(String query) throws IOException, SQLException {
+        Connection connection = DatabaseConnector.connectToDatabase();
+        Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
         List<Referee> listOfReferees = new ArrayList<>();
         while(result.next()) {
@@ -32,37 +55,5 @@ public class RefereeDAOImplementation implements RefereeDAOi{
         }
         connection.close();
         return listOfReferees;
-    }
-
-    public Referee filterById(int id) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        String query = SELECT_ALL + FILTER + ID_FILTER + id + ";";
-        ResultSet result = statement.executeQuery(query);
-        List<Referee> listOfRefereesById = new ArrayList<>();
-        while(result.next()) {
-            int refereeID = result.getInt(1);
-            String fName = result.getString(2);
-            String lName = result.getString(3);
-            listOfRefereesById.add(new Referee(refereeID, fName, lName));
-        }
-        connection.close();
-        return listOfRefereesById.get(0);
-    }
-
-    public List<Referee> filterByLastName(String lastName) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        String query = SELECT_ALL + FILTER + LAST_NAME_FILTER + lastName + "';";
-        ResultSet result = statement.executeQuery(query);
-        List<Referee> listOfRefereesBylName = new ArrayList<>();
-        while(result.next()) {
-            int id = result.getInt(1);
-            String fName = result.getString(2);
-            String lName = result.getString(3);
-            listOfRefereesBylName.add(new Referee(id, fName, lName));
-        }
-        connection.close();
-        return listOfRefereesBylName;
     }
 }

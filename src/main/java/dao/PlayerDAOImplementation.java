@@ -20,14 +20,48 @@ public class PlayerDAOImplementation implements PlayerDAOi{
     private final static String CLUB_FILTER = " clubID= '";
     private final static String LAST_NAME_FILTER = " last_name= '";
     private final static String ENDING = "';";
+    private final static ClubDAOImplementation clubDAO = new ClubDAOImplementation();
 
     public List<Player> getAll() throws IOException, SQLException {
+        String query = SELECT_ALL + ";";
+        return this.executeQuery(query);
+    }
+
+    public Player filterById(String id) throws IOException, SQLException {
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
-        String query = SELECT_ALL + ";";
-        List<Player> listOfPlayers = new ArrayList<>();
+        String query = SELECT_ALL + FILTER + ID_FILTER + id + ENDING;
+        Player player = null;
         ResultSet result = statement.executeQuery(query);
         ClubDAOImplementation clubDAO = new ClubDAOImplementation();
+        String playerId = result.getString(1);
+        Club clubId = clubDAO.filterById(result.getString(2));
+        String fName = result.getString(3);
+        String lName = result.getString(4);
+        Date birthDate = result.getDate(5);
+        String nationality = result.getString(6);
+        Date contractValidity = result.getDate(7);
+        String nominalPosition = result.getString(8);
+        player = new Player(playerId, clubId, fName, lName, birthDate, nationality, contractValidity, nominalPosition);
+        connection.close();
+        return player;
+    }
+
+    public List<Player> filterByClub(Club club) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + CLUB_FILTER + club.getClubId() + ENDING;
+        return this.executeQuery(query);
+    }
+
+    public List<Player> filterByLastName(String lastName) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + LAST_NAME_FILTER + lastName + ENDING;
+        return this.executeQuery(query);
+    }
+
+    private List<Player> executeQuery(String query) throws IOException, SQLException {
+        Connection connection = DatabaseConnector.connectToDatabase();
+        Statement statement = connection.createStatement();
+        List<Player> listOfPlayers = new ArrayList<>();
+        ResultSet result = statement.executeQuery(query);
         while(result.next()) {
             String playerId = result.getString(1);
             Club clubId = clubDAO.filterById(result.getString(2));
@@ -41,71 +75,5 @@ public class PlayerDAOImplementation implements PlayerDAOi{
         }
         connection.close();
         return listOfPlayers;
-    }
-
-    public Player filterById(String id) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        String query = SELECT_ALL + FILTER + ID_FILTER + id + ENDING;
-        List<Player> listOfPlayersById = new ArrayList<>();
-        ResultSet result = statement.executeQuery(query);
-        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        while(result.next()) {
-            String playerId = result.getString(1);
-            Club clubId = clubDAO.filterById(result.getString(2));
-            String fName = result.getString(3);
-            String lName = result.getString(4);
-            Date birthDate = result.getDate(5);
-            String nationality = result.getString(6);
-            Date contractValidity = result.getDate(7);
-            String nominalPosition = result.getString(8);
-            listOfPlayersById.add(new Player(playerId, clubId, fName, lName, birthDate, nationality, contractValidity, nominalPosition));
-        }
-        connection.close();
-        return listOfPlayersById.get(0);
-    }
-
-    public List<Player> filterByClub(Club club) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        String query = SELECT_ALL + FILTER + CLUB_FILTER + club.getClubId() + ENDING;
-        List<Player> listOfPlayersByClub = new ArrayList<>();
-        ResultSet result = statement.executeQuery(query);
-        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        while(result.next()) {
-            String playerId = result.getString(1);
-            Club clubId = clubDAO.filterById(result.getString(2));
-            String fName = result.getString(3);
-            String lName = result.getString(4);
-            Date birthDate = result.getDate(5);
-            String nationality = result.getString(6);
-            Date contractValidity = result.getDate(7);
-            String nominalPosition = result.getString(8);
-            listOfPlayersByClub.add(new Player(playerId, clubId, fName, lName, birthDate, nationality, contractValidity, nominalPosition));
-        }
-        connection.close();
-        return listOfPlayersByClub;
-    }
-
-    public List<Player> filterByLastName(String lastName) throws IOException, SQLException {
-        Connection connection = DatabaseConnector.connectToDatabase();
-        Statement statement = connection.createStatement();
-        String query = SELECT_ALL + FILTER + LAST_NAME_FILTER + lastName + ENDING;
-        List<Player> listOfPlayersByLastName = new ArrayList<>();
-        ResultSet result = statement.executeQuery(query);
-        ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        while(result.next()) {
-            String playerId = result.getString(1);
-            Club clubId = clubDAO.filterById(result.getString(2));
-            String fName = result.getString(3);
-            String lName = result.getString(4);
-            Date birthDate = result.getDate(5);
-            String nationality = result.getString(6);
-            Date contractValidity = result.getDate(7);
-            String nominalPosition = result.getString(8);
-            listOfPlayersByLastName.add(new Player(playerId, clubId, fName, lName, birthDate, nationality, contractValidity, nominalPosition));
-        }
-        connection.close();
-        return listOfPlayersByLastName;
     }
 }
