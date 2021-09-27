@@ -20,36 +20,42 @@ public class CoachDAOImplementation implements CoachDAOi{
     private static final String CLUB_FILTER = "club= '";
     private static final String LAST_NAME_FILTER = "last_name= '";
     private static final String ENDING = "';";
-    private static final ClubDAOImplementation clubDAO = new ClubDAOImplementation();
+    private final ClubDAOImplementation clubDAO = new ClubDAOImplementation();
 
 
+    @Override
     public List<Coach> getAll() throws IOException, SQLException {
         String query = SELECT_ALL + ";";
         return this.executeQuery(query);
     }
 
+    @Override
     public Coach filterById(int coachId) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + ID_FILTER + coachId + ";";
         Coach coach = null;
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
-        int id = result.getInt(1);
-        Club team = clubDAO.filterById(result.getString(2));
-        String fName = result.getString(3);
-        String lName = result.getString(4);
-        String nationality = result.getString(5);
-        Date birthDate = result.getDate(6);
-        coach = new Coach(id, team, fName, lName, nationality, birthDate);
+        if(result.next()) {
+            int id = result.getInt(1);
+            Club team = clubDAO.filterById(result.getString(2));
+            String fName = result.getString(3);
+            String lName = result.getString(4);
+            String nationality = result.getString(5);
+            Date birthDate = result.getDate(6);
+            coach = new Coach(id, team, fName, lName, nationality, birthDate);
+        }
         connection.close();
         return coach;
     }
 
+    @Override
     public List<Coach> filterByClub(Club club) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + CLUB_FILTER + club.getClubId() + ENDING;
         return this.executeQuery(query);
     }
 
+    @Override
     public List<Coach> filterByLastName(String lastName) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + LAST_NAME_FILTER + lastName + ENDING;
         return this.executeQuery(query);

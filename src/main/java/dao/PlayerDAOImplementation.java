@@ -22,11 +22,13 @@ public class PlayerDAOImplementation implements PlayerDAOi{
     private final static String ENDING = "';";
     private final static ClubDAOImplementation clubDAO = new ClubDAOImplementation();
 
+    @Override
     public List<Player> getAll() throws IOException, SQLException {
         String query = SELECT_ALL + ";";
         return this.executeQuery(query);
     }
 
+    @Override
     public Player filterById(String id) throws IOException, SQLException {
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
@@ -47,11 +49,13 @@ public class PlayerDAOImplementation implements PlayerDAOi{
         return player;
     }
 
+    @Override
     public List<Player> filterByClub(Club club) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + CLUB_FILTER + club.getClubId() + ENDING;
         return this.executeQuery(query);
     }
 
+    @Override
     public List<Player> filterByLastName(String lastName) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + LAST_NAME_FILTER + lastName + ENDING;
         return this.executeQuery(query);

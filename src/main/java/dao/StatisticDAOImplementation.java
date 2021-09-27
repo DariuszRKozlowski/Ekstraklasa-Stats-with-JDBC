@@ -26,23 +26,27 @@ public class StatisticDAOImplementation implements StatisticDAOi {
     private static final PlayerDAOImplementation playerDAO = new PlayerDAOImplementation();
     private static final ClubDAOImplementation clubDAO = new ClubDAOImplementation();
 
+    @Override
     public List<Statistic> getAll() throws IOException, SQLException {
         String query = SELECT_ALL + ";";
         return this.executeQuery(query);
     }
 
+    @Override
     public List<Statistic> filterByPlayer(Player player) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + PLAYER_FILTER + player.getPlayerId() + ENDING;
         return this.executeQuery(query);
     }
 
+    @Override
     public List<Statistic> filterByMatch(Match match) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + MATCH_FILTER + match.getMatchId() + ENDING;
         return this.executeQuery(query);
     }
 
-    public Statistic filterById(Match match, Player player) throws IOException, SQLException {
-        String query = SELECT_ALL + FILTER + ID_FILTER  + match.getMatchId() + ":" + player.getPlayerId() + ENDING;
+    @Override
+    public Statistic filterById(String id) throws IOException, SQLException {
+        String query = SELECT_ALL + FILTER + ID_FILTER  + id + ENDING;
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);

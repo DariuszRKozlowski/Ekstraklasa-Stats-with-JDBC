@@ -25,19 +25,22 @@ public class MatchDAOImplementation implements MatchDAOi {
     private static final String CLUB_FILTER2 = "guestID= '";
     private static final String REFEREE_FILTER = "referee=";
     private static final String ENDING = "';";
-    private static final ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-    private static final RefereeDAOImplementation refereeDAO = new RefereeDAOImplementation();
+    private final ClubDAOImplementation clubDAO = new ClubDAOImplementation();
+    private final RefereeDAOImplementation refereeDAO = new RefereeDAOImplementation();
 
+    @Override
     public List<Match> getAll() throws IOException, SQLException {
         String query = SELECT_ALL + ";";
         return this.executeQuery(query);
     }
 
+    @Override
     public List<Match> filterByGameweek(int gw) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + GAMEWEEK_FILTER + gw + ";";
         return this.executeQuery(query);
     }
 
+    @Override
     public Match filterById(String id) throws IOException, SQLException {
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
@@ -58,11 +61,13 @@ public class MatchDAOImplementation implements MatchDAOi {
         return listOfMatchesById.get(0);
     }
 
+    @Override
     public List<Match> filterByClub(Club club) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + CLUB_FILTER1 + club.getClubId() + OR + CLUB_FILTER2 + club.getClubId() + ENDING;
         return this.executeQuery(query);
     }
 
+    @Override
     public List<Match> filterByReferee(Referee ref) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + REFEREE_FILTER + ref.getId() + ";";
         return this.executeQuery(query);

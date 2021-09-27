@@ -18,11 +18,13 @@ public class RefereeDAOImplementation implements RefereeDAOi{
     private static final String ID_FILTER = "refereeID=";
     private static final String LAST_NAME_FILTER = "last_name='";
 
+    @Override
     public List<Referee> getAll() throws IOException, SQLException {
         String query = SELECT_ALL + ";";
         return this.executeQuery(query);
     }
 
+    @Override
     public Referee filterById(int id) throws IOException, SQLException {
         Connection connection = DatabaseConnector.connectToDatabase();
         Statement statement = connection.createStatement();
@@ -37,6 +39,7 @@ public class RefereeDAOImplementation implements RefereeDAOi{
         return referee;
     }
 
+    @Override
     public List<Referee> filterByLastName(String lastName) throws IOException, SQLException {
         String query = SELECT_ALL + FILTER + LAST_NAME_FILTER + lastName + "';";
         return this.executeQuery(query);

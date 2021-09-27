@@ -16,5 +16,5 @@ public interface StatisticDAOi {
 
     List<Statistic> filterByMatch(Match match) throws IOException, SQLException;
 
-    Statistic filterById(Match match, Player player) throws IOException, SQLException;
+    Statistic filterById(String id) throws IOException, SQLException;
 }

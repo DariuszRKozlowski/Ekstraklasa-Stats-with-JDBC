@@ -29,4 +29,52 @@ public class Statistic {
         this.yellowCards = yellowCards;
         this.redCards = redCards;
     }
+
+    public String getStatId() {
+        return statId;
+    }
+
+    public Match getMatchID() {
+        return matchID;
+    }
+
+    public int getGameweek() {
+        return gameweek;
+    }
+
+    public Player getPlayerId() {
+        return playerId;
+    }
+
+    public Club getRivalId() {
+        return rivalId;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public int getAssists() {
+        return assists;
+    }
+
+    public byte getCleanSheets() {
+        return cleanSheets;
+    }
+
+    public byte getOwnGoals() {
+        return ownGoals;
+    }
+
+    public byte getYellowCards() {
+        return yellowCards;
+    }
+
+    public byte getRedCards() {
+        return redCards;
+    }
 }
