@@ -110,6 +110,4 @@ public class StatisticOption implements OptionInterface {
             }
         }
     }
-
-
 }
