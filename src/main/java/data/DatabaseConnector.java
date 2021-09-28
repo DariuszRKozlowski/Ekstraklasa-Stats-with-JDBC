@@ -28,7 +28,6 @@ public class DatabaseConnector {
         Connection result = null;
         try {
             result = DriverManager.getConnection(url, username, password);
-            System.out.println("Successfully connection to database!");
         } catch (SQLException exc) {
             System.out.println("Can not connect to database: " + url +", with username \"" + username + "\" & password \"" + password + "\"" +
                     "\nCheck parameters and try again.");

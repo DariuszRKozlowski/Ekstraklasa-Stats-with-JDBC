@@ -32,10 +32,10 @@ public class ClubOption implements OptionInterface {
         else {
             StringBuilder message = new StringBuilder();
             for (Club club : listOfClubs) {
-                message.append("ID: ").append(club.getClubId()).append(" Name: ").append(club.getName())
-                        .append(" Locality: ").append(club.getLocality()).append(" (").append(club.getVoivodeship())
-                        .append("), Stadium: ").append(club.getStadiumName()).append(" (").append(club.getStadiumCapacity())
-                        .append(" seats),\n");
+                message.append("ID: ").append(club.getClubId()).append(" | Name: ").append(club.getName())
+                        .append(" | Locality: ").append(club.getLocality()).append(" (").append(club.getVoivodeship())
+                        .append(") | Stadium: ").append(club.getStadiumName()).append(" (").append(club.getStadiumCapacity())
+                        .append(" seats).\n");
             }
             JOptionPane.showMessageDialog(null, message);
         }
