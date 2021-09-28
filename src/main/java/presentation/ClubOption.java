@@ -76,6 +76,7 @@ public class ClubOption implements OptionInterface {
                 for (Club club: clubByName) {
                     playersByClub = playerDAO.filterByClub(club);
                     StringBuilder message = new StringBuilder();
+                    message.append(club.getName()).append(" players:").append("\n");
                     for (Player player: playersByClub) {
                         message.append(player.getPlayerId()).append(": ").append(player.getfName()).append(" ").append(player.getlName()).append(" (").append(player.getNationality()).append(", ").append(player.getNominalPosition()).append(")\n");
                     }
@@ -86,6 +87,7 @@ public class ClubOption implements OptionInterface {
         else {
             playersByClub = playerDAO.filterByClub(clubById);
             StringBuilder message = new StringBuilder();
+            message.append(clubById.getName()).append(" players:").append("\n");
             for (Player player: playersByClub) {
                 message.append(player.getPlayerId()).append(": ").append(player.getfName()).append(" ").append(player.getlName()).append(" (").append(player.getNationality()).append(", ").append(player.getNominalPosition()).append(")\n");
             }
@@ -106,8 +108,8 @@ public class ClubOption implements OptionInterface {
                     matchesByClub = matchDAO.filterByClub(club);
                     StringBuilder message = new StringBuilder();
                     for (Match match: matchesByClub) {
-                        message.append("Gameweek ").append(match.getGameweek()).append(": ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                                .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID()).append("\n");
+                        message.append("Gameweek ").append(match.getGameweek()).append(": ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                                .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName()).append("\n");
                     }
                     JOptionPane.showMessageDialog(null, message);
                 }
@@ -117,8 +119,8 @@ public class ClubOption implements OptionInterface {
             matchesByClub = matchDAO.filterByClub(clubById);
             StringBuilder message = new StringBuilder();
             for (Match match: matchesByClub) {
-                message.append("Gameweek ").append(match.getGameweek()).append(": ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID()).append("\n");
+                message.append("Gameweek ").append(match.getGameweek()).append(": ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName()).append("\n");
             }
             JOptionPane.showMessageDialog(null, message);
         }
@@ -137,7 +139,7 @@ public class ClubOption implements OptionInterface {
                     listOfCoaches = coachDAO.filterByClub(club);
                     StringBuilder message = new StringBuilder();
                     for (Coach coach: listOfCoaches) {
-                        message.append("Coach of ").append(coach.getClub()).append(": ").append(coach.getfName()).append(" ").append(coach.getlName())
+                        message.append("Coach of ").append(coach.getClub().getName()).append(": ").append(coach.getfName()).append(" ").append(coach.getlName())
                                 .append(" (").append(coach.getNationality()).append(")");
                     }
                     JOptionPane.showMessageDialog(null, message.toString());
@@ -148,7 +150,7 @@ public class ClubOption implements OptionInterface {
             listOfCoaches = coachDAO.filterByClub(clubById);
             StringBuilder message = new StringBuilder();
             for (Coach coach: listOfCoaches) {
-                message.append("Coach of ").append(coach.getClub()).append(": ").append(coach.getfName()).append(" ").append(coach.getlName())
+                message.append("Coach of ").append(coach.getClub().getName()).append(": ").append(coach.getfName()).append(" ").append(coach.getlName())
                         .append(" (").append(coach.getNationality()).append(")");
             }
             JOptionPane.showMessageDialog(null, message.toString());

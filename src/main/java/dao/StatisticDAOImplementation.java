@@ -51,19 +51,21 @@ public class StatisticDAOImplementation implements StatisticDAOi {
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
         Statistic statistic = null;
-        String statId = result.getString(1);
-        Match matchId = matchDAO.filterById(result.getString(2));
-        int gameweek = result.getInt(3);
-        Player playerId = playerDAO.filterById(result.getString(4));
-        Club rivalId = clubDAO.filterById(result.getString(5));
-        int minutes = result.getInt(6);
-        int goals = result.getInt(7);
-        int assists = result.getInt(8);
-        byte cleanSheets = result.getByte(9);
-        byte ownGoals = result.getByte(10);
-        byte yellowCards = result.getByte(11);
-        byte redCards = result.getByte(12);
-        statistic = new Statistic(statId, matchId, gameweek, playerId, rivalId, minutes, goals, assists, cleanSheets, ownGoals, yellowCards, redCards);
+        while(result.next()) {
+            String statId = result.getString(1);
+            Match matchId = matchDAO.filterById(result.getString(2));
+            int gameweek = result.getInt(3);
+            Player playerId = playerDAO.filterById(result.getString(4));
+            Club rivalId = clubDAO.filterById(result.getString(5));
+            int minutes = result.getInt(6);
+            int goals = result.getInt(7);
+            int assists = result.getInt(8);
+            byte cleanSheets = result.getByte(9);
+            byte ownGoals = result.getByte(10);
+            byte yellowCards = result.getByte(11);
+            byte redCards = result.getByte(12);
+            statistic = new Statistic(statId, matchId, gameweek, playerId, rivalId, minutes, goals, assists, cleanSheets, ownGoals, yellowCards, redCards);
+        }
         connection.close();
         return statistic;
     }

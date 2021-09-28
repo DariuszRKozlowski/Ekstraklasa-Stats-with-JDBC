@@ -31,10 +31,12 @@ public class RefereeDAOImplementation implements RefereeDAOi{
         String query = SELECT_ALL + FILTER + ID_FILTER + id + ";";
         ResultSet result = statement.executeQuery(query);
         Referee referee = null;
-        int refereeID = result.getInt(1);
-        String fName = result.getString(2);
-        String lName = result.getString(3);
-        referee = new Referee(refereeID, fName, lName);
+        while(result.next()) {
+            int refereeID = result.getInt(1);
+            String fName = result.getString(2);
+            String lName = result.getString(3);
+            referee = new Referee(refereeID, fName, lName);
+        }
         connection.close();
         return referee;
     }

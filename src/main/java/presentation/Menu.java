@@ -80,7 +80,7 @@ public class Menu {
                 coachOption.displayAll();
             }
             case 1 -> {
-                String coach = JOptionPane.showInputDialog("Entry coach id or name");
+                String coach = JOptionPane.showInputDialog("Enter one of them: CoachID, ClubID  Club name or Coach last name");
                 boolean isNumber = false;
                 int value;
                 try {

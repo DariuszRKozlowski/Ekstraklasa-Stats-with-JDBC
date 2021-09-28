@@ -23,9 +23,11 @@ public class CoachOption implements OptionInterface {
         else {
             StringBuilder message = new StringBuilder();
             for (Coach coach: listOfCoaches) {
+                String club;
+                club = coach.getClub() == null ? "Unemployed": coach.getClub().getName();
                 message.append("ID: ").append(coach.getCoachID()).append(" | Name: ").append(coach.getfName()).append(" ")
                         .append(coach.getlName()).append(" | Nationality: ").append(coach.getNationality())
-                        .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(coach.getClub())
+                        .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(club)
                         .append("\n");
             }
             JOptionPane.showMessageDialog(null, message);
@@ -43,9 +45,10 @@ public class CoachOption implements OptionInterface {
             }
             else {
                 for (Coach coach: coachByName) {
+                    String club = coach.getClub() == null ? "Unemployed" : coach.getClub().getName();
                     message.append("ID: ").append(coach.getCoachID()).append(" | Name: ").append(coach.getfName()).append(" ")
                             .append(coach.getlName()).append(" | Nationality: ").append(coach.getNationality())
-                            .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(coach.getClub())
+                            .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(coach.getClub().getName())
                             .append("\n");
                 }
                 JOptionPane.showMessageDialog(null, message);
@@ -53,9 +56,10 @@ public class CoachOption implements OptionInterface {
         }
         else {
             for (Coach coach: coachByClub) {
+                String club = coach.getClub() == null ? "Unemployed" : coach.getClub().getName();
                 message.append("ID: ").append(coach.getCoachID()).append(" | Name: ").append(coach.getfName()).append(" ")
                         .append(coach.getlName()).append(" | Nationality: ").append(coach.getNationality())
-                        .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(coach.getClub())
+                        .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(coach.getClub().getName())
                         .append("\n");
             }
             JOptionPane.showMessageDialog(null, message);
@@ -69,9 +73,10 @@ public class CoachOption implements OptionInterface {
             JOptionPane.showMessageDialog(null,"Can not find \"" + input + "\" in database!");
         }
         else {
+            String club = coachById.getClub() == null ? "Unemployed" : coachById.getClub().getName();
             message.append("ID: ").append(coachById.getCoachID()).append(" | Name: ").append(coachById.getfName()).append(" ")
                     .append(coachById.getlName()).append(" | Nationality: ").append(coachById.getNationality())
-                    .append(" | Birthdate: ").append(coachById.getBirthDate()).append(" | Club: ").append(coachById.getClub())
+                    .append(" | Birthdate: ").append(coachById.getBirthDate()).append(" | Club: ").append(club)
                     .append("\n");
             JOptionPane.showMessageDialog(null, message);
         }

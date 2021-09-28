@@ -28,8 +28,8 @@ public class MatchOption implements OptionInterface {
             StringBuilder message = new StringBuilder();
             for (Match match: listOfMatches) {
                 message.append("Date: ").append(match.getDate().toString()).append(" | Gameweek: ").append(match.getGameweek())
-                        .append(" | Game: ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID())
+                        .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                         .append(" | Attendance: ").append(match.getAttendance()).append("\n");
             }
             JOptionPane.showMessageDialog(null, message);
@@ -45,8 +45,8 @@ public class MatchOption implements OptionInterface {
         else {
             StringBuilder message = new StringBuilder();
             message.append("Date: ").append(match.getDate().toString()).append(" | Gameweek: ").append(match.getGameweek())
-                    .append(" | Game: ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                    .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID())
+                    .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                    .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                     .append(" | Attendance: ").append(match.getAttendance()).append(" | Referee: ")
                     .append(match.getReferee().getfName()).append(" ").append(match.getReferee().getlName()).append("\n");
             JOptionPane.showMessageDialog(null, message);
@@ -63,8 +63,8 @@ public class MatchOption implements OptionInterface {
             message.append("Gameweek ").append(gameweek).append("\n");
             for (Match match : listOfMatches) {
                 message.append("Date: ").append(match.getDate().toString())
-                        .append(" | Game: ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID())
+                        .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                         .append(" | Attendance: ").append(match.getAttendance()).append(" | Referee: ")
                         .append(match.getReferee().getfName()).append(" ").append(match.getReferee().getlName()).append("\n");
             }
@@ -84,8 +84,8 @@ public class MatchOption implements OptionInterface {
                 message.append("Referee ").append(referee.getfName()).append(" ").append(referee.getlName()).append(":\n");
                 for (Match match : listOfMatches) {
                     message.append("Date: ").append(match.getDate().toString()).append(" | Gameweek: ").append(match.getGameweek())
-                            .append(" | Game: ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                            .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID())
+                            .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                            .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                             .append(" | Attendance: ").append(match.getAttendance()).append("\n");
                 }
                 JOptionPane.showMessageDialog(null, message);
@@ -104,8 +104,8 @@ public class MatchOption implements OptionInterface {
             message.append("Referee ").append(referee.getfName()).append(" ").append(referee.getlName()).append(":\n");
             for (Match match : listOfMatches) {
                 message.append("Date: ").append(match.getDate().toString()).append(" | Gameweek: ").append(match.getGameweek())
-                        .append(" | Game: ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID())
+                        .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                         .append(" | Attendance: ").append(match.getAttendance()).append("\n");
             }
             JOptionPane.showMessageDialog(null, message);
@@ -125,8 +125,8 @@ public class MatchOption implements OptionInterface {
                     StringBuilder message = new StringBuilder();
                     for (Match match: listOfMatches) {
                         message.append("Date: ").append(match.getDate().toString()).append(" | Gameweek: ").append(match.getGameweek())
-                                .append(" | Game: ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                                .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID())
+                                .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                                .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                                 .append(" | Attendance: ").append(match.getAttendance()).append(" | Referee: ")
                                 .append(match.getReferee().getfName()).append(" ").append(match.getReferee().getlName()).append("\n");
                     }
@@ -139,8 +139,8 @@ public class MatchOption implements OptionInterface {
             StringBuilder message = new StringBuilder();
             for (Match match: listOfMatches) {
                 message.append("Date: ").append(match.getDate().toString()).append(" | Gameweek: ").append(match.getGameweek())
-                        .append(" | Game: ").append(match.getHostID()).append(" ").append(match.getGoalsHost())
-                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID())
+                        .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                        .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                         .append(" | Attendance: ").append(match.getAttendance()).append(" | Referee: ")
                         .append(match.getReferee().getfName()).append(" ").append(match.getReferee().getlName()).append("\n");
             }

@@ -41,6 +41,20 @@ public class StatisticOption implements OptionInterface {
     @Override
     public void displaySpecificOne(String statisticId) throws SQLException, IOException {
         Statistic statistic = statisticDAO.filterById(statisticId);
+        if(statistic == null) {
+            JOptionPane.showMessageDialog(null, "Can not find " + statisticId + " in database!");
+        }
+        else {
+            StringBuilder message = new StringBuilder();
+            message.append("Results for \"").append(statistic.getStatId()).append("\":\n");
+            message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID().getMatchId())
+                    .append(" | Gameweek: ").append(statistic.getGameweek()).append(" | Minutes: ")
+                    .append(statistic.getMinutes()).append(" | Goals: ").append(statistic.getGoals())
+                    .append(" | Assist: ").append(statistic.getAssists()).append(" | Clean sheet: ").append(statistic.getCleanSheets())
+                    .append(" | Own goals: ").append(statistic.getOwnGoals()).append(" | Yellow cards: ").append(statistic.getYellowCards())
+                    .append(" | Red card: ").append(statistic.getRedCards()).append("\n");
+            JOptionPane.showMessageDialog(null, message);
+        }
     }
 
     public void displaySpecificPlayerStatistics(String input) throws SQLException, IOException {
@@ -52,12 +66,12 @@ public class StatisticOption implements OptionInterface {
             }
             else {
                 StringBuilder message = new StringBuilder();
-                message.append("Results for \"").append(input).append("\":\n");
+                message.append("Results for \"").append(input).append("\"\n");
                 for (Player playerFromList: listOfPlayers) {
                     List<Statistic> listOfStatistics = statisticDAO.filterByPlayer(playerFromList);
-                    message.append("Player: ").append(playerFromList.getfName()).append(" ").append(playerFromList.getlName()).append(":\n");
+                    message.append("Player: ").append(playerFromList.getfName()).append(" ").append(playerFromList.getlName()).append("\n").append("Statistics:\n");
                     for (Statistic statistic: listOfStatistics) {
-                        message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID())
+                        message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID().getMatchId())
                                 .append(" | Gameweek: ").append(statistic.getGameweek()).append(" | Minutes: ")
                                 .append(statistic.getMinutes()).append(" | Goals: ").append(statistic.getGoals())
                                 .append(" | Assist: ").append(statistic.getAssists()).append(" | Clean sheet: ").append(statistic.getCleanSheets())
@@ -74,7 +88,7 @@ public class StatisticOption implements OptionInterface {
             List<Statistic> listOfStatistics = statisticDAO.filterByPlayer(player);
             message.append("Player: ").append(player.getfName()).append(" ").append(player.getlName()).append(":\n");
             for (Statistic statistic: listOfStatistics) {
-                message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID())
+                message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID().getMatchId())
                         .append(" | Gameweek: ").append(statistic.getGameweek()).append(" | Minutes: ")
                         .append(statistic.getMinutes()).append(" | Goals: ").append(statistic.getGoals())
                         .append(" | Assist: ").append(statistic.getAssists()).append(" | Clean sheet: ").append(statistic.getCleanSheets())
@@ -99,7 +113,7 @@ public class StatisticOption implements OptionInterface {
             else {
                 message.append("Results for \"").append(input).append("\":\n");
                 for (Statistic statistic: listOfStatistics) {
-                    message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID())
+                    message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID().getMatchId())
                             .append(" | Gameweek: ").append(statistic.getGameweek()).append(" | Minutes: ")
                             .append(statistic.getMinutes()).append(" | Goals: ").append(statistic.getGoals())
                             .append(" | Assist: ").append(statistic.getAssists()).append(" | Clean sheet: ").append(statistic.getCleanSheets())

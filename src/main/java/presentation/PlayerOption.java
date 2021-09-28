@@ -24,7 +24,7 @@ public class PlayerOption implements OptionInterface {
         else {
             StringBuilder message = new StringBuilder();
             for (Player player: listOfPlayers) {
-                message.append("Club: ").append(player.getClubId()).append(" | Name: ").append(player.getfName())
+                message.append("Club: ").append(player.getClubId().getName()).append(" | Name: ").append(player.getfName())
                         .append(" ").append(player.getlName()).append(" | Birthdate: ").append(player.getBirthDate().toString())
                         .append(" | Nationality: ").append(player.getNationality()).append(" | Nominal position: ")
                         .append(player.getNominalPosition()).append("\n");
@@ -43,7 +43,7 @@ public class PlayerOption implements OptionInterface {
             }
             else {
                 StringBuilder message = new StringBuilder();
-                message.append("ID: ").append(player.getPlayerId()).append(" | Club: ").append(player.getClubId()).append(" | Name: ").append(player.getfName())
+                message.append("ID: ").append(player.getPlayerId()).append(" | Club: ").append(player.getClubId().getName()).append(" | Name: ").append(player.getfName())
                         .append(" ").append(player.getlName()).append(" | Birthdate: ").append(player.getBirthDate().toString())
                         .append(" | Nationality: ").append(player.getNationality()).append(" | Nominal position: ")
                         .append(player.getNominalPosition()).append(" | Contract validity: ").append(player.getContractValidity().toString());
@@ -77,7 +77,7 @@ public class PlayerOption implements OptionInterface {
             StringBuilder message = new StringBuilder();
             message.append("Results for: ").append(position).append(":\n");
             for (Player player: samePositionList) {
-                message.append("ID: ").append(player.getPlayerId()).append(" | Club: ").append(player.getClubId()).append(" | Name: ").append(player.getfName())
+                message.append("ID: ").append(player.getPlayerId()).append(" | Club: ").append(player.getClubId().getName()).append(" | Name: ").append(player.getfName())
                         .append(" ").append(player.getlName()).append(" | Birthdate: ").append(player.getBirthDate().toString())
                         .append(" | Nationality: ").append(player.getNationality()).append("\n");
             }

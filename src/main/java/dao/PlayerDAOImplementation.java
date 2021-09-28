@@ -36,15 +36,17 @@ public class PlayerDAOImplementation implements PlayerDAOi{
         Player player = null;
         ResultSet result = statement.executeQuery(query);
         ClubDAOImplementation clubDAO = new ClubDAOImplementation();
-        String playerId = result.getString(1);
-        Club clubId = clubDAO.filterById(result.getString(2));
-        String fName = result.getString(3);
-        String lName = result.getString(4);
-        Date birthDate = result.getDate(5);
-        String nationality = result.getString(6);
-        Date contractValidity = result.getDate(7);
-        String nominalPosition = result.getString(8);
-        player = new Player(playerId, clubId, fName, lName, birthDate, nationality, contractValidity, nominalPosition);
+        while(result.next()) {
+            String playerId = result.getString(1);
+            Club clubId = clubDAO.filterById(result.getString(2));
+            String fName = result.getString(3);
+            String lName = result.getString(4);
+            Date birthDate = result.getDate(5);
+            String nationality = result.getString(6);
+            Date contractValidity = result.getDate(7);
+            String nominalPosition = result.getString(8);
+            player = new Player(playerId, clubId, fName, lName, birthDate, nationality, contractValidity, nominalPosition);
+        }
         connection.close();
         return player;
     }
