@@ -5,6 +5,7 @@ import dao.ClubDAOImplementation;
 import dao.PlayerDAOImplementation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +30,13 @@ public class PlayerOption implements OptionInterface {
                         .append(" | Nationality: ").append(player.getNationality()).append(" | Nominal position: ")
                         .append(player.getNominalPosition()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            JTextArea textArea = new JTextArea(message.toString());
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            scrollPane.setPreferredSize(new Dimension(900, 900));
+            textArea.setSize(new Dimension(900,700));
+            JOptionPane.showMessageDialog(null, scrollPane, "Result", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -53,7 +60,7 @@ public class PlayerOption implements OptionInterface {
         else {
             for (Player playerFromList : listOfPlayers) {
                 StringBuilder message = new StringBuilder();
-                message.append("ID: ").append(playerFromList.getPlayerId()).append(" | Club: ").append(playerFromList.getClubId()).append(" | Name: ").append(playerFromList.getfName())
+                message.append("ID: ").append(playerFromList.getPlayerId()).append(" | Club: ").append(playerFromList.getClubId().getName()).append(" | Name: ").append(playerFromList.getfName())
                         .append(" ").append(playerFromList.getlName()).append(" | Birthdate: ").append(playerFromList.getBirthDate().toString())
                         .append(" | Nationality: ").append(playerFromList.getNationality()).append(" | Nominal position: ")
                         .append(playerFromList.getNominalPosition()).append(" | Contract validity: ").append(playerFromList.getContractValidity().toString());
@@ -81,7 +88,13 @@ public class PlayerOption implements OptionInterface {
                         .append(" ").append(player.getlName()).append(" | Birthdate: ").append(player.getBirthDate().toString())
                         .append(" | Nationality: ").append(player.getNationality()).append("\n");
             }
-        JOptionPane.showMessageDialog(null, message);
+            JTextArea textArea = new JTextArea(message.toString());
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            scrollPane.setPreferredSize(new Dimension(900, 900));
+            textArea.setSize(new Dimension(900,700));
+            JOptionPane.showMessageDialog(null, scrollPane, "Result", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

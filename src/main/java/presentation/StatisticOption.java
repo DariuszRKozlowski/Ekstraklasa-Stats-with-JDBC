@@ -9,6 +9,7 @@ import dao.PlayerDAOImplementation;
 import dao.StatisticDAOImplementation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,13 +29,19 @@ public class StatisticOption implements OptionInterface {
         else {
             StringBuilder message = new StringBuilder();
             for (Statistic statistic: listOfStatistics) {
-                message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID())
+                message.append("ID: ").append(statistic.getStatId()).append(" | Match: ").append(statistic.getMatchID().getMatchId())
                         .append(" | Player: ").append(statistic.getPlayerId().getfName()).append(" ").append(statistic.getPlayerId().getlName())
                         .append(" | Minutes: ").append(statistic.getMinutes()).append(" | Goals: ").append(statistic.getGoals())
                         .append(" | Assists: ").append(statistic.getAssists()).append(" | Clean sheet: ").append(statistic.getCleanSheets())
                         .append(" | Yellow card: ").append(statistic.getYellowCards()).append(" | Red card: ").append(statistic.getRedCards()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            JTextArea textArea = new JTextArea(message.toString());
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            scrollPane.setPreferredSize(new Dimension(1100, 800));
+            textArea.setSize(new Dimension(1000,700));
+            JOptionPane.showMessageDialog(null, scrollPane, "Result", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

@@ -22,6 +22,7 @@ public class StatisticDAOImplementation implements StatisticDAOi {
     private static final String MATCH_FILTER = " matchID= '";
     private static final String PLAYER_FILTER = " playerID= '";
     private static final String ENDING = "';";
+    private static final String ALTERNATIVE_ENDING = " ' ORDER BY gameweek;";
     private static final MatchDAOImplementation matchDAO = new MatchDAOImplementation();
     private static final PlayerDAOImplementation playerDAO = new PlayerDAOImplementation();
     private static final ClubDAOImplementation clubDAO = new ClubDAOImplementation();
@@ -34,7 +35,7 @@ public class StatisticDAOImplementation implements StatisticDAOi {
 
     @Override
     public List<Statistic> filterByPlayer(Player player) throws IOException, SQLException {
-        String query = SELECT_ALL + FILTER + PLAYER_FILTER + player.getPlayerId() + ENDING;
+        String query = SELECT_ALL + FILTER + PLAYER_FILTER + player.getPlayerId() + ALTERNATIVE_ENDING;
         return this.executeQuery(query);
     }
 

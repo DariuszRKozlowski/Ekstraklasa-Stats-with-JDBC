@@ -18,7 +18,7 @@ public class CoachDAOImplementation implements CoachDAOi{
     private static final String FILTER = " WHERE ";
     private static final String ID_FILTER = "coachID=";
     private static final String CLUB_FILTER = "club= '";
-    private static final String LAST_NAME_FILTER = "last_name= '";
+    private static final String LAST_NAME_FILTER = "last_name = '";
     private static final String ENDING = "';";
     private final ClubDAOImplementation clubDAO = new ClubDAOImplementation();
 

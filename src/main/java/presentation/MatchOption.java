@@ -8,8 +8,10 @@ import dao.MatchDAOImplementation;
 import dao.RefereeDAOImplementation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MatchOption implements OptionInterface {
@@ -32,7 +34,13 @@ public class MatchOption implements OptionInterface {
                         .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                         .append(" | Attendance: ").append(match.getAttendance()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            JTextArea textArea = new JTextArea(message.toString());
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            scrollPane.setPreferredSize(new Dimension(900, 900));
+            textArea.setSize(new Dimension(900,700));
+            JOptionPane.showMessageDialog(null, scrollPane, "Result", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -74,28 +82,37 @@ public class MatchOption implements OptionInterface {
 
     public void displayByReferee(String input) throws SQLException, IOException {
         List<Referee> listOfReferees = refereeDAO.filterByLastName(input);
-        for (Referee referee: listOfReferees) {
-            List<Match> listOfMatches = matchDAO.filterByReferee(referee);
-            if(listOfMatches.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Can not find matches for referee id="+input+"!");
-            }
-            else {
-                StringBuilder message = new StringBuilder();
-                message.append("Referee ").append(referee.getfName()).append(" ").append(referee.getlName()).append(":\n");
-                for (Match match : listOfMatches) {
-                    message.append("Date: ").append(match.getDate().toString()).append(" | Gameweek: ").append(match.getGameweek())
-                            .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
-                            .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
-                            .append(" | Attendance: ").append(match.getAttendance()).append("\n");
+        if(listOfReferees.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "There is no referee for input: " + input + " in database!");
+        }
+        else {
+            for (Referee referee: listOfReferees) {
+                List<Match> listOfMatches = matchDAO.filterByReferee(referee);
+                if(listOfMatches.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Can not find matches for referee id="+input+"!");
                 }
-                JOptionPane.showMessageDialog(null, message);
+                else {
+                    StringBuilder message = new StringBuilder();
+                    message.append("Referee ").append(referee.getfName()).append(" ").append(referee.getlName()).append(":\n");
+                    for (Match match : listOfMatches) {
+                        message.append("Date: ").append(match.getDate().toString()).append(" | Gameweek: ").append(match.getGameweek())
+                                .append(" | Game: ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
+                                .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
+                                .append(" | Attendance: ").append(match.getAttendance()).append("\n");
+                    }
+                    JOptionPane.showMessageDialog(null, message);
+                }
             }
         }
+
     }
 
     public void displayByReferee(int input) throws SQLException, IOException {
         Referee referee = refereeDAO.filterById(input);
-        List<Match> listOfMatches = matchDAO.filterByReferee(referee);
+        List<Match> listOfMatches = new ArrayList<>();
+        if(referee != null) {
+            listOfMatches = matchDAO.filterByReferee(referee);
+        }
         if(listOfMatches.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Can not find matches for referee id="+input+"!");
         }

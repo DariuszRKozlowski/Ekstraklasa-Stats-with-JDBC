@@ -49,19 +49,19 @@ public class Menu {
                 clubOption.displayAll();
             }
             case 1 -> {
-                String club = JOptionPane.showInputDialog("Entry club id or name");
+                String club = JOptionPane.showInputDialog("Enter ClubID or name");
                 clubOption.displaySpecificOne(club);
             }
             case 2 -> {
-                String club = JOptionPane.showInputDialog("Entry club id or name");
+                String club = JOptionPane.showInputDialog("Entry ClubID or name");
                 clubOption.displayClubPlayers(club);
             }
             case 3 -> {
-                String club = JOptionPane.showInputDialog("Entry club id or name");
+                String club = JOptionPane.showInputDialog("Entry ClubID or name");
                 clubOption.displayClubCoach(club);
             }
             case 4 -> {
-                String club = JOptionPane.showInputDialog("Entry club id or name");
+                String club = JOptionPane.showInputDialog("Entry ClubID or name");
                 clubOption.displayClubResults(club);
             }
             case 5 -> {
@@ -80,8 +80,7 @@ public class Menu {
                 coachOption.displayAll();
             }
             case 1 -> {
-                String coach = JOptionPane.showInputDialog("Enter one of them: CoachID, ClubID  Club name or Coach last name");
-                boolean isNumber = false;
+                String coach = JOptionPane.showInputDialog("Enter one of them: CoachID, ClubID  or Coach last name");
                 int value;
                 try {
                     value = Integer.parseInt(coach);
@@ -106,11 +105,11 @@ public class Menu {
                 matchOption.displayAll();
             }
             case 1 -> {
-                String match = JOptionPane.showInputDialog("Entry match id or name");
+                String match = JOptionPane.showInputDialog("Enter MatchID");
                 matchOption.displaySpecificOne(match);
             }
             case 2 -> {
-                String match = JOptionPane.showInputDialog("Entry gameweek number");
+                String match = JOptionPane.showInputDialog("Enter gameweek number");
                 try {
                     int value = Integer.parseInt(match);
                     matchOption.displayWholeGameweek(value);

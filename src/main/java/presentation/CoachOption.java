@@ -1,5 +1,6 @@
 package presentation;
 
+import application.Club;
 import application.Coach;
 import dao.ClubDAOImplementation;
 import dao.CoachDAOImplementation;
@@ -7,6 +8,7 @@ import dao.CoachDAOImplementation;
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CoachOption implements OptionInterface {
@@ -36,30 +38,34 @@ public class CoachOption implements OptionInterface {
 
     @Override
     public void displaySpecificOne(String input) throws SQLException, IOException {
-        List<Coach> coachByClub = coachDAO.filterByClub(clubDAO.filterById(input));
+        Club clubFilter = clubDAO.filterById(input);
+        List<Coach> coachByClub = new ArrayList<>();
+        if (clubFilter != null) {
+            coachByClub = coachDAO.filterByClub(clubFilter);
+        }
         List<Coach> coachByName = coachDAO.filterByLastName(input);
         StringBuilder message = new StringBuilder();
-        if(coachByClub.isEmpty()) {
-            if(coachByName.isEmpty()) {
+        if(coachByName.isEmpty()) {
+            if(coachByClub.isEmpty()) {
                 JOptionPane.showMessageDialog(null,"Can not find \"" + input + "\" in database!");
             }
             else {
-                for (Coach coach: coachByName) {
-                    String club = coach.getClub() == null ? "Unemployed" : coach.getClub().getName();
+                for (Coach coach: coachByClub) {
+                    String club = coach.getClub().getName() == null ? "Unemployed" : coach.getClub().getName();
                     message.append("ID: ").append(coach.getCoachID()).append(" | Name: ").append(coach.getfName()).append(" ")
                             .append(coach.getlName()).append(" | Nationality: ").append(coach.getNationality())
-                            .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(coach.getClub().getName())
+                            .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(club)
                             .append("\n");
                 }
                 JOptionPane.showMessageDialog(null, message);
             }
         }
         else {
-            for (Coach coach: coachByClub) {
-                String club = coach.getClub() == null ? "Unemployed" : coach.getClub().getName();
+            for (Coach coach: coachByName) {
+                String club = coach.getClub().getName() == null ? "Unemployed" : coach.getClub().getName();
                 message.append("ID: ").append(coach.getCoachID()).append(" | Name: ").append(coach.getfName()).append(" ")
                         .append(coach.getlName()).append(" | Nationality: ").append(coach.getNationality())
-                        .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(coach.getClub().getName())
+                        .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(club)
                         .append("\n");
             }
             JOptionPane.showMessageDialog(null, message);
