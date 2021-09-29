@@ -47,25 +47,38 @@ public class Menu {
         switch (result) {
             case 0 -> {
                 clubOption.displayAll();
+                clubMenu();
             }
             case 1 -> {
                 String club = JOptionPane.showInputDialog("Enter ClubID or name");
-                clubOption.displaySpecificOne(club);
+                if(club != null) {
+                    clubOption.displaySpecificOne(club);
+                }
+                clubMenu();
             }
             case 2 -> {
                 String club = JOptionPane.showInputDialog("Entry ClubID or name");
-                clubOption.displayClubPlayers(club);
+                if(club != null) {
+                    clubOption.displayClubPlayers(club);
+                }
+                clubMenu();
             }
             case 3 -> {
                 String club = JOptionPane.showInputDialog("Entry ClubID or name");
-                clubOption.displayClubCoach(club);
+                if(club != null) {
+                    clubOption.displayClubCoach(club);
+                }
+                clubMenu();
             }
             case 4 -> {
                 String club = JOptionPane.showInputDialog("Entry ClubID or name");
-                clubOption.displayClubResults(club);
+                if(club != null) {
+                    clubOption.displayClubResults(club);
+                }
+                clubMenu();
             }
             case 5 -> {
-
+                mainMenu();
             }
         }
     }
@@ -78,19 +91,23 @@ public class Menu {
         switch (result) {
             case 0 -> {
                 coachOption.displayAll();
+                coachMenu();
             }
             case 1 -> {
                 String coach = JOptionPane.showInputDialog("Enter one of them: CoachID, ClubID  or Coach last name");
-                int value;
-                try {
-                    value = Integer.parseInt(coach);
-                    coachOption.displaySpecificOne(value);
-                } catch (NumberFormatException exc) {
-                    coachOption.displaySpecificOne(coach);
+                if(coach != null) {
+                    int value;
+                    try {
+                        value = Integer.parseInt(coach);
+                        coachOption.displaySpecificOne(value);
+                    } catch (NumberFormatException exc) {
+                        coachOption.displaySpecificOne(coach);
+                    }
                 }
+                coachMenu();
             }
             case 2 -> {
-
+                mainMenu();
             }
         }
     }
@@ -103,35 +120,48 @@ public class Menu {
         switch (result) {
             case 0 -> {
                 matchOption.displayAll();
+                matchMenu();
             }
             case 1 -> {
                 String match = JOptionPane.showInputDialog("Enter MatchID");
-                matchOption.displaySpecificOne(match);
+                if(match != null)  {
+                    matchOption.displaySpecificOne(match);
+                }
+                matchMenu();
             }
             case 2 -> {
                 String match = JOptionPane.showInputDialog("Enter gameweek number");
-                try {
-                    int value = Integer.parseInt(match);
-                    matchOption.displayWholeGameweek(value);
-                } catch(NumberFormatException exc) {
-                    JOptionPane.showMessageDialog(null,"Input is not number!");
+                if(match != null) {
+                    try {
+                        int value = Integer.parseInt(match);
+                        matchOption.displayWholeGameweek(value);
+                    } catch(NumberFormatException exc) {
+                        JOptionPane.showMessageDialog(null,"Input is not number!");
+                    }
                 }
+                matchMenu();
             }
             case 3 -> {
                 String match = JOptionPane.showInputDialog("Entry referee id or last name");
-                try {
-                    int value = Integer.parseInt(match);
-                    matchOption.displayByReferee(value);
-                } catch(NumberFormatException exc) {
-                    matchOption.displayByReferee(match);
+                if(match != null) {
+                    try {
+                        int value = Integer.parseInt(match);
+                        matchOption.displayByReferee(value);
+                    } catch(NumberFormatException exc) {
+                        matchOption.displayByReferee(match);
+                    }
                 }
+                matchMenu();
             }
             case 4 -> {
                 String match = JOptionPane.showInputDialog("Entry club id or name");
-                matchOption.displayByClub(match);
+                if(match != null) {
+                    matchOption.displayByClub(match);
+                }
+                matchMenu();
             }
             case 5 -> {
-
+                mainMenu();
             }
         }
     }
@@ -144,17 +174,24 @@ public class Menu {
         switch (result) {
             case 0 -> {
                 playerOption.displayAll();
+                playerMenu();
             }
             case 1 -> {
                 String player = JOptionPane.showInputDialog("Entry player id or last name");
-                playerOption.displaySpecificOne(player);
+                if(player != null) {
+                    playerOption.displaySpecificOne(player);
+                }
+                playerMenu();
             }
             case 2 -> {
                 String player = JOptionPane.showInputDialog("Entry position (for example: \"Goalkeeper\" ");
-                playerOption.displaySamePositionPlayers(player);
+                if(player != null) {
+                    playerOption.displaySamePositionPlayers(player);
+                }
+                playerMenu();
             }
             case 3 -> {
-
+                mainMenu();
             }
         }
     }
@@ -167,18 +204,22 @@ public class Menu {
         switch (result) {
             case 0 -> {
                 refereeOption.displayAll();
+                refereeMenu();
             }
             case 1 -> {
                 String referee = JOptionPane.showInputDialog("Entry referee id or last name");
-                try {
-                    int value = Integer.parseInt(referee);
-                    refereeOption.displaySpecificOne(value);
-                } catch (NumberFormatException exc) {
-                    refereeOption.displaySpecificOne(referee);
+                if(referee != null) {
+                    try {
+                        int value = Integer.parseInt(referee);
+                        refereeOption.displaySpecificOne(value);
+                    } catch (NumberFormatException exc) {
+                        refereeOption.displaySpecificOne(referee);
+                    }
                 }
+                refereeMenu();
             }
             case 2 -> {
-
+                mainMenu();
             }
         }
     }
@@ -191,21 +232,31 @@ public class Menu {
         switch (result) {
             case 0 -> {
                 statisticOption.displayAll();
+                statisticMenu();
             }
             case 1 -> {
                 String statistic = JOptionPane.showInputDialog("Enter statistic id (for example: \"LGD-RAD:LGD#01\")");
-                statisticOption.displaySpecificOne(statistic);
+                if(statistic != null) {
+                    statisticOption.displaySpecificOne(statistic);
+                }
+                statisticMenu();
             }
             case 2 -> {
                 String statistic = JOptionPane.showInputDialog("Enter player id or last name");
-                statisticOption.displaySpecificPlayerStatistics(statistic);
+                if(statistic != null) {
+                    statisticOption.displaySpecificPlayerStatistics(statistic);
+                }
+                statisticMenu();
             }
             case 3 -> {
                 String statistic = JOptionPane.showInputDialog("Enter match id (for example: \"LEG-WIS\"");
-                statisticOption.displaySpecificMatchStatistics(statistic);
+                if(statistic != null) {
+                    statisticOption.displaySpecificMatchStatistics(statistic);
+                }
+                statisticMenu();
             }
             case 4 -> {
-
+                mainMenu();
             }
         }
     }
