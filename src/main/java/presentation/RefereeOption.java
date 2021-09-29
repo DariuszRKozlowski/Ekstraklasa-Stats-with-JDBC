@@ -4,6 +4,7 @@ import application.Referee;
 import dao.RefereeDAOImplementation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +25,7 @@ public class RefereeOption implements OptionInterface {
                 message.append("ID: ").append(referee.getId()).append(" | Name: ").append(referee.getfName())
                         .append(" ").append(referee.getlName()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "All referees");
         }
     }
 
@@ -40,7 +41,7 @@ public class RefereeOption implements OptionInterface {
                 message.append("ID: ").append(referee.getId()).append(" | Name: ").append(referee.getfName())
                         .append(" ").append(referee.getlName()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "Results for " + input);
         }
     }
 
@@ -53,9 +54,17 @@ public class RefereeOption implements OptionInterface {
             StringBuilder message = new StringBuilder();
             message.append("ID: ").append(refereeById.getId()).append(" | Name: ").append(refereeById.getfName())
                     .append(" ").append(refereeById.getlName()).append("\n");
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "Result for " + input);
         }
     }
 
-
+    private void displayOnScreen(StringBuilder message, String title) {
+        JTextArea textArea = new JTextArea(message.toString());
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        scrollPane.setPreferredSize(new Dimension(1100, 800));
+        textArea.setSize(new Dimension(1000,700));
+        JOptionPane.showMessageDialog(null, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
+    }
 }

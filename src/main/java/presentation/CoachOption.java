@@ -6,6 +6,7 @@ import dao.ClubDAOImplementation;
 import dao.CoachDAOImplementation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class CoachOption implements OptionInterface {
                         .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(club)
                         .append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "All coaches");
         }
     }
 
@@ -51,24 +52,24 @@ public class CoachOption implements OptionInterface {
             }
             else {
                 for (Coach coach: coachByClub) {
-                    String club = coach.getClub().getName() == null ? "Unemployed" : coach.getClub().getName();
+                    String club = coach.getClub() == null ? "Unemployed" : coach.getClub().getName();
                     message.append("ID: ").append(coach.getCoachID()).append(" | Name: ").append(coach.getfName()).append(" ")
                             .append(coach.getlName()).append(" | Nationality: ").append(coach.getNationality())
                             .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(club)
                             .append("\n");
                 }
-                JOptionPane.showMessageDialog(null, message);
+                displayOnScreen(message, "Coach found for " + input);
             }
         }
         else {
             for (Coach coach: coachByName) {
-                String club = coach.getClub().getName() == null ? "Unemployed" : coach.getClub().getName();
+                String club = coach.getClub() == null ? "Unemployed" : coach.getClub().getName();
                 message.append("ID: ").append(coach.getCoachID()).append(" | Name: ").append(coach.getfName()).append(" ")
                         .append(coach.getlName()).append(" | Nationality: ").append(coach.getNationality())
                         .append(" | Birthdate: ").append(coach.getBirthDate()).append(" | Club: ").append(club)
                         .append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "Coach found for " + input);
         }
     }
 
@@ -86,5 +87,15 @@ public class CoachOption implements OptionInterface {
                     .append("\n");
             JOptionPane.showMessageDialog(null, message);
         }
+    }
+
+    private void displayOnScreen(StringBuilder message, String title) {
+        JTextArea textArea = new JTextArea(message.toString());
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        scrollPane.setPreferredSize(new Dimension(1100, 800));
+        textArea.setSize(new Dimension(1000,700));
+        JOptionPane.showMessageDialog(null, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }

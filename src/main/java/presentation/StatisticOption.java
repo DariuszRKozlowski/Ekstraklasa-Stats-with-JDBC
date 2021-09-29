@@ -35,13 +35,7 @@ public class StatisticOption implements OptionInterface {
                         .append(" | Assists: ").append(statistic.getAssists()).append(" | Clean sheet: ").append(statistic.getCleanSheets())
                         .append(" | Yellow card: ").append(statistic.getYellowCards()).append(" | Red card: ").append(statistic.getRedCards()).append("\n");
             }
-            JTextArea textArea = new JTextArea(message.toString());
-            JScrollPane scrollPane = new JScrollPane(textArea);
-            textArea.setLineWrap(true);
-            textArea.setWrapStyleWord(true);
-            scrollPane.setPreferredSize(new Dimension(1100, 800));
-            textArea.setSize(new Dimension(1000,700));
-            JOptionPane.showMessageDialog(null, scrollPane, "Result", JOptionPane.INFORMATION_MESSAGE);
+            displayOnScreen(message, "All statistics");
         }
     }
 
@@ -60,7 +54,7 @@ public class StatisticOption implements OptionInterface {
                     .append(" | Assist: ").append(statistic.getAssists()).append(" | Clean sheet: ").append(statistic.getCleanSheets())
                     .append(" | Own goals: ").append(statistic.getOwnGoals()).append(" | Yellow cards: ").append(statistic.getYellowCards())
                     .append(" | Red card: ").append(statistic.getRedCards()).append("\n");
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "Result for " + statisticId);
         }
     }
 
@@ -85,8 +79,8 @@ public class StatisticOption implements OptionInterface {
                                 .append(" | Own goals: ").append(statistic.getOwnGoals()).append(" | Yellow cards: ").append(statistic.getYellowCards())
                                 .append(" | Red card: ").append(statistic.getRedCards()).append("\n");
                     }
-                JOptionPane.showMessageDialog(null, message);
                 }
+                displayOnScreen(message, "Result for" + input);
             }
         }
         else {
@@ -127,8 +121,18 @@ public class StatisticOption implements OptionInterface {
                             .append(" | Own goals: ").append(statistic.getOwnGoals()).append(" | Yellow cards: ").append(statistic.getYellowCards())
                             .append(" | Red card: ").append(statistic.getRedCards()).append("\n");
                 }
-                JOptionPane.showMessageDialog(null, message);
+                displayOnScreen(message, "Result for " + input);
             }
         }
+    }
+
+    private void displayOnScreen(StringBuilder message, String title) {
+        JTextArea textArea = new JTextArea(message.toString());
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        scrollPane.setPreferredSize(new Dimension(1100, 800));
+        textArea.setSize(new Dimension(1000,700));
+        JOptionPane.showMessageDialog(null, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }

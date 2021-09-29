@@ -30,13 +30,7 @@ public class PlayerOption implements OptionInterface {
                         .append(" | Nationality: ").append(player.getNationality()).append(" | Nominal position: ")
                         .append(player.getNominalPosition()).append("\n");
             }
-            JTextArea textArea = new JTextArea(message.toString());
-            JScrollPane scrollPane = new JScrollPane(textArea);
-            textArea.setLineWrap(true);
-            textArea.setWrapStyleWord(true);
-            scrollPane.setPreferredSize(new Dimension(900, 900));
-            textArea.setSize(new Dimension(900,700));
-            JOptionPane.showMessageDialog(null, scrollPane, "Result", JOptionPane.INFORMATION_MESSAGE);
+            displayOnScreen(message, "All players");
         }
     }
 
@@ -54,7 +48,7 @@ public class PlayerOption implements OptionInterface {
                         .append(" ").append(player.getlName()).append(" | Birthdate: ").append(player.getBirthDate().toString())
                         .append(" | Nationality: ").append(player.getNationality()).append(" | Nominal position: ")
                         .append(player.getNominalPosition()).append(" | Contract validity: ").append(player.getContractValidity().toString());
-                JOptionPane.showMessageDialog(null, message);
+                displayOnScreen(message, "Result for " + input);
             }
         }
         else {
@@ -64,7 +58,7 @@ public class PlayerOption implements OptionInterface {
                         .append(" ").append(playerFromList.getlName()).append(" | Birthdate: ").append(playerFromList.getBirthDate().toString())
                         .append(" | Nationality: ").append(playerFromList.getNationality()).append(" | Nominal position: ")
                         .append(playerFromList.getNominalPosition()).append(" | Contract validity: ").append(playerFromList.getContractValidity().toString());
-                JOptionPane.showMessageDialog(null, message);
+                displayOnScreen(message, "Result for " + input);
             }
         }
     }
@@ -88,13 +82,17 @@ public class PlayerOption implements OptionInterface {
                         .append(" ").append(player.getlName()).append(" | Birthdate: ").append(player.getBirthDate().toString())
                         .append(" | Nationality: ").append(player.getNationality()).append("\n");
             }
-            JTextArea textArea = new JTextArea(message.toString());
-            JScrollPane scrollPane = new JScrollPane(textArea);
-            textArea.setLineWrap(true);
-            textArea.setWrapStyleWord(true);
-            scrollPane.setPreferredSize(new Dimension(900, 900));
-            textArea.setSize(new Dimension(900,700));
-            JOptionPane.showMessageDialog(null, scrollPane, "Result", JOptionPane.INFORMATION_MESSAGE);
+            displayOnScreen(message, "Result for position: " + position);
         }
+    }
+
+    private void displayOnScreen(StringBuilder message, String title) {
+        JTextArea textArea = new JTextArea(message.toString());
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        scrollPane.setPreferredSize(new Dimension(1100, 800));
+        textArea.setSize(new Dimension(1000,700));
+        JOptionPane.showMessageDialog(null, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }

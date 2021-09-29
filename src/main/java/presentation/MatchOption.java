@@ -57,7 +57,7 @@ public class MatchOption implements OptionInterface {
                     .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                     .append(" | Attendance: ").append(match.getAttendance()).append(" | Referee: ")
                     .append(match.getReferee().getfName()).append(" ").append(match.getReferee().getlName()).append("\n");
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "All matches");
         }
     }
 
@@ -76,7 +76,7 @@ public class MatchOption implements OptionInterface {
                         .append(" | Attendance: ").append(match.getAttendance()).append(" | Referee: ")
                         .append(match.getReferee().getfName()).append(" ").append(match.getReferee().getlName()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "Gameweek " + gameweek);
         }
     }
 
@@ -100,7 +100,7 @@ public class MatchOption implements OptionInterface {
                                 .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                                 .append(" | Attendance: ").append(match.getAttendance()).append("\n");
                     }
-                    JOptionPane.showMessageDialog(null, message);
+                    displayOnScreen(message, "Matches for " + input);
                 }
             }
         }
@@ -125,7 +125,7 @@ public class MatchOption implements OptionInterface {
                         .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName())
                         .append(" | Attendance: ").append(match.getAttendance()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "Matches for " + input);
         }
     }
 
@@ -147,7 +147,7 @@ public class MatchOption implements OptionInterface {
                                 .append(" | Attendance: ").append(match.getAttendance()).append(" | Referee: ")
                                 .append(match.getReferee().getfName()).append(" ").append(match.getReferee().getlName()).append("\n");
                     }
-                    JOptionPane.showMessageDialog(null, message);
+                    displayOnScreen(message, "Matches for " + input);
                 }
             }
         }
@@ -161,8 +161,18 @@ public class MatchOption implements OptionInterface {
                         .append(" | Attendance: ").append(match.getAttendance()).append(" | Referee: ")
                         .append(match.getReferee().getfName()).append(" ").append(match.getReferee().getlName()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "Matches for " + input);
         }
+    }
+
+    private void displayOnScreen(StringBuilder message, String title) {
+        JTextArea textArea = new JTextArea(message.toString());
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        scrollPane.setPreferredSize(new Dimension(1100, 800));
+        textArea.setSize(new Dimension(1000,700));
+        JOptionPane.showMessageDialog(null, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

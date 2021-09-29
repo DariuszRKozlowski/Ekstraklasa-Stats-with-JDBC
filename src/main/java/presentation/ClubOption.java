@@ -10,6 +10,7 @@ import dao.MatchDAOImplementation;
 import dao.PlayerDAOImplementation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ClubOption implements OptionInterface {
                         .append(") | Stadium: ").append(club.getStadiumName()).append(" (").append(club.getStadiumCapacity())
                         .append(" seats).\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "All clubs");
         }
     }
 
@@ -51,16 +52,17 @@ public class ClubOption implements OptionInterface {
             }
             else {
                 for (Club club: clubByName) {
-                    JOptionPane.showMessageDialog(null, "Result for \""+input+"\":\nClub name: " + club.getName()
-                            + "\nID: " + club.getClubId() + "\nLocality: " + club.getLocality() + "\nVoivodeship: " + club.getVoivodeship()
-                            + "\nStadium: " + club.getStadiumName() + " (" + club.getStadiumCapacity()+ " seats)");
+                    StringBuilder message = new StringBuilder();
+                    message.append("Result for \"").append(input).append("\":\nClub name: ").append(club.getName()).append("\nID: ").append(club.getClubId()).append("\nLocality: ").append(club.getLocality()).append("\nVoivodeship: ").append(club.getVoivodeship()).append("\nStadium: ").append(club.getStadiumName()).append(" (").append(club.getStadiumCapacity()).append(" seats)");
+                    displayOnScreen(message, "Result for " + input);
                 }
             }
         }
         else {
-            JOptionPane.showMessageDialog(null, "Result for \""+input+"\":\nClub name: " + clubById.getName()
-                    + "\nID: " + clubById.getClubId() + "\nLocality: " + clubById.getLocality() + "\nVoivodeship: " + clubById.getVoivodeship()
-                    + "\nStadium: " + clubById.getStadiumName() + " (" + clubById.getStadiumCapacity() + " seats)");
+            StringBuilder message = new StringBuilder();
+            message.append("Result for \"").append(input).append("\":\nClub name: ").append(clubById.getName()).append("\nID: ").append(clubById.getClubId()).append("\nLocality: ").append(clubById.getLocality()).append("\nVoivodeship: ").append(clubById.getVoivodeship()).append("\nStadium: ").append(clubById.getStadiumName()).append(" (").append(clubById.getStadiumCapacity()).append(" seats)");
+            displayOnScreen(message, "Result for " + input);
+
         }
     }
 
@@ -80,7 +82,7 @@ public class ClubOption implements OptionInterface {
                     for (Player player: playersByClub) {
                         message.append(player.getPlayerId()).append(": ").append(player.getfName()).append(" ").append(player.getlName()).append(" (").append(player.getNationality()).append(", ").append(player.getNominalPosition()).append(")\n");
                     }
-                    JOptionPane.showMessageDialog(null, message.toString());
+                    displayOnScreen(message, "Players for " + input);
                 }
             }
         }
@@ -91,7 +93,7 @@ public class ClubOption implements OptionInterface {
             for (Player player: playersByClub) {
                 message.append(player.getPlayerId()).append(": ").append(player.getfName()).append(" ").append(player.getlName()).append(" (").append(player.getNationality()).append(", ").append(player.getNominalPosition()).append(")\n");
             }
-            JOptionPane.showMessageDialog(null, message.toString());
+            displayOnScreen(message, "Players for " + input);
         }
     }
 
@@ -111,7 +113,7 @@ public class ClubOption implements OptionInterface {
                         message.append("Gameweek ").append(match.getGameweek()).append(": ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
                                 .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName()).append("\n");
                     }
-                    JOptionPane.showMessageDialog(null, message);
+                    displayOnScreen(message, "Game results for " + input);
                 }
             }
         }
@@ -122,7 +124,7 @@ public class ClubOption implements OptionInterface {
                 message.append("Gameweek ").append(match.getGameweek()).append(": ").append(match.getHostID().getName()).append(" ").append(match.getGoalsHost())
                         .append("-").append(match.getGoalsGuest()).append(" ").append(match.getGuestID().getName()).append("\n");
             }
-            JOptionPane.showMessageDialog(null, message);
+            displayOnScreen(message, "Game results for " + input);
         }
     }
 
@@ -142,7 +144,7 @@ public class ClubOption implements OptionInterface {
                         message.append("Coach of ").append(coach.getClub().getName()).append(": ").append(coach.getfName()).append(" ").append(coach.getlName())
                                 .append(" (").append(coach.getNationality()).append(")");
                     }
-                    JOptionPane.showMessageDialog(null, message.toString());
+                    displayOnScreen(message, "Coach found for " + input);
                 }
             }
         }
@@ -153,7 +155,17 @@ public class ClubOption implements OptionInterface {
                 message.append("Coach of ").append(coach.getClub().getName()).append(": ").append(coach.getfName()).append(" ").append(coach.getlName())
                         .append(" (").append(coach.getNationality()).append(")");
             }
-            JOptionPane.showMessageDialog(null, message.toString());
+            displayOnScreen(message, "Coach found for " + input);
         }
+    }
+
+    private void displayOnScreen(StringBuilder message, String title) {
+        JTextArea textArea = new JTextArea(message.toString());
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        scrollPane.setPreferredSize(new Dimension(1100, 800));
+        textArea.setSize(new Dimension(1000,700));
+        JOptionPane.showMessageDialog(null, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }
