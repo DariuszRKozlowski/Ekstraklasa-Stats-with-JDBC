@@ -22,9 +22,9 @@ To create this project is used:
 * Swing library.
 
 ## Setup
-For communication between Java application and database is necessary to install JDBC driver dedicated to database server. In this case JDBC for [SQL Server](https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver15) is used.
+For communication between Java application and database is necessary to install JDBC driver dedicated to database server. In this case [JDBC for SQL Server](https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver15) is used.
 
-To create the right database about Ekstraklasa follow: [Ekstraklasa-Database](https://github.com/DariuszRKozlowski/Ekstraklasa-Database).
+To create the right database of Ekstraklasa follow: [Ekstraklasa-Database](https://github.com/DariuszRKozlowski/Ekstraklasa-Database).
 
 For successfully connection between application and database is necessary to configure `database.properties` file by own data about path, username and password.
 
