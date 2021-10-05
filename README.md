@@ -5,6 +5,7 @@ Project of displaying data about Polish Footbal League - Ekstraklasa from databa
 * [Introduction](#introduction)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Screenshots](#screenshots)
 
 
 ## Introduction
@@ -27,3 +28,20 @@ To create the right database about Ekstraklasa follow: [Ekstraklasa-Database](ht
 
 For successfully connection between application and database is necessary to configure `database.properties` file by own data about path, username and password.
 
+## Screenshots
+
+| ![](https://github.com/DariuszRKozlowski/images/blob/main/x1.PNG) |
+|:--:|
+| <b>Main menu</b>|
+
+| ![](https://github.com/DariuszRKozlowski/images/blob/main/2x.PNG) |
+|:--:|
+| <b>Club submenu</b>|
+
+| ![](https://github.com/DariuszRKozlowski/images/blob/main/3x.PNG) |
+|:--:|
+| <b>Display club players input dialog</b>|
+
+| ![](https://github.com/DariuszRKozlowski/images/blob/main/4x.PNG) |
+|:--:|
+| <b>Result</b>|
